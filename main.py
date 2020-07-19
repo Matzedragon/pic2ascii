@@ -3,12 +3,11 @@ import numpy as np
 
 class ascii:
     def __init__(self, path, ratio):
-        self.characters = [".","/","(","*","&","@","#","%"] # characters used to transform to ascii
+        self.characters = ["`","'",".","-","^",",",":","!","*","~","/","(","@","$","&","#"] # characters used to transform to ascii
         self.image = Image.open(path)
         self.greyscale = 0
         self.greyscaleArray = 0
         self.tablereduit = []
-        self.result = open("test.txt","r+")
         self.ratio = ratio
 
     #convert the picture to a greyscaled version
@@ -37,17 +36,18 @@ class ascii:
                         *(len(self.characters)-1))/255))
 
     def toascii(self):
+        result = open("result.txt", "w+")
         for i in range(len(self.tablereduit)):
-            self.result.write('\n') #create the new line in the txt doc
+            result.write('\n') #create the new line in the txt doc
 
             for y in range(len(self.tablereduit[i])):
                 #add the character to the txt
-                self.result.write(self.characters[abs(self.tablereduit[i][y]-(len(self.characters)-1))])
+                result.write(self.characters[abs(self.tablereduit[i][y])-(abs(len(self.characters)-1))])
         #closing the txt file
-        self.result.close()
+        result.close()
 
 
-test1 = ascii("test.jpg", 5)
+test1 = ascii("test2.png", 2)
 test1.convertToGrayscale()
 test1.getgreyscaleArray()
 test1.toascii()
